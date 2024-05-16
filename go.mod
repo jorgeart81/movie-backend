@@ -1,4 +1,4 @@
-module backend
+module github.com/jorgeart81/movie-backend
 
 go 1.21.6
 

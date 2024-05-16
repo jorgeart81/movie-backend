@@ -1,29 +1,31 @@
 package main
 
 import (
-	"backend/cmd/config"
-	"backend/cmd/router"
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/jorgeart81/movie-backend/cmd/config"
+	"github.com/jorgeart81/movie-backend/cmd/router"
 )
 
-type application struct {
-	Domain string
-}
-
 func main() {
-	var app application
+	var app config.Application
 
-	router := router.MainRouter()
+	router := router.MainRouter(&app)
 	envs, _ := config.Envs()
+
+	app.Domain = envs.Domain
+
 	// TODO: set application config
 
 	// TODO: read from command line
 
 	// TODO: connect to the database
 
-	app.Domain = envs.Domain
+	flag.StringVar(&app.Domain, "domain", envs.Domain, "domain")
+	flag.Parse()
 
 	// start a web server
 	log.Println("Starting application on port", envs.ApiPort)
