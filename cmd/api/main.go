@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/jorgeart81/movie-backend/cmd/config"
-	"github.com/jorgeart81/movie-backend/cmd/router"
+	"github.com/jorgeart81/movie-backend/api/router"
+	"github.com/jorgeart81/movie-backend/config"
 )
 
 func main() {
