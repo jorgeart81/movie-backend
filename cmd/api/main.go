@@ -30,7 +30,8 @@ func main() {
 
 	// start a web server
 	log.Println("Starting application on port", envs.ApiPort)
-	err := http.ListenAndServe(fmt.Sprintf(":%d", envs.ApiPort), router)
+	addr := fmt.Sprintf("%s:%d", envs.ApiHost, envs.ApiPort)
+	err := http.ListenAndServe(addr, router)
 	if err != nil {
 		log.Fatal(err)
 	}
