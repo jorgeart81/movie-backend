@@ -13,20 +13,18 @@ import (
 
 func main() {
 	var app models.Application
-
-	router := routes.MainRouter(&app)
 	envs, _ := config.Envs()
 
-	app.Domain = envs.Domain
+	flag.StringVar(&app.Domain, "domain", envs.Domain, "domain")
+	flag.Parse()
+
+	router := routes.MainRouter(&app)
 
 	// TODO: set application config
 
 	// TODO: read from command line
 
 	// TODO: connect to the database
-
-	flag.StringVar(&app.Domain, "domain", envs.Domain, "domain")
-	flag.Parse()
 
 	// start a web server
 	log.Println("Starting application on port", envs.ApiPort)
