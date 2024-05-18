@@ -20,7 +20,7 @@ func MainRouter(app *models.Application) http.Handler {
 		mux.Get("/", controllers.Home)
 
 		mux.Route("/movies", func(mux chi.Router) {
-			mux.Get("/", controllers.Movies)
+			mux.Get("/", controllers.AllMovies)
 		})
 
 	})

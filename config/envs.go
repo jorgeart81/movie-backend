@@ -10,6 +10,7 @@ import (
 
 type Environment struct {
 	ApiPort int
+	ApiHost string
 	Domain  string
 }
 
@@ -22,6 +23,7 @@ func Envs() (Environment, error) {
 	}
 
 	env.ApiPort = parseInt(os.Getenv("API_PORT"), "error parsing CONNECT_TIMEOUT")
+	env.ApiHost = os.Getenv("API_HOST")
 	env.Domain = os.Getenv("DOMAIN")
 
 	return env, nil
