@@ -5,16 +5,16 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/jorgeart81/movie-backend/config"
+	"github.com/jorgeart81/movie-backend/internal/models"
 )
 
 type apiController struct {
-	app *config.Application
+	app *models.Application
 }
 
 var controllerStruct apiController
 
-func Init(app *config.Application) {
+func Init(app *models.Application) {
 	controllerStruct.app = app
 }
 

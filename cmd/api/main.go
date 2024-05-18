@@ -6,14 +6,15 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/jorgeart81/movie-backend/api/router"
+	"github.com/jorgeart81/movie-backend/cmd/api/routes"
 	"github.com/jorgeart81/movie-backend/config"
+	"github.com/jorgeart81/movie-backend/internal/models"
 )
 
 func main() {
-	var app config.Application
+	var app models.Application
 
-	router := router.MainRouter(&app)
+	router := routes.MainRouter(&app)
 	envs, _ := config.Envs()
 
 	app.Domain = envs.Domain

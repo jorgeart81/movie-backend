@@ -1,15 +1,16 @@
-package router
+package routes
 
 import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/jorgeart81/movie-backend/api/router/controllers"
-	"github.com/jorgeart81/movie-backend/config"
+
+	"github.com/jorgeart81/movie-backend/cmd/api/routes/controllers"
+	"github.com/jorgeart81/movie-backend/internal/models"
 )
 
-func MainRouter(app *config.Application) http.Handler {
+func MainRouter(app *models.Application) http.Handler {
 	mux := chi.NewRouter()
 	mux.Use(middleware.Recoverer)
 
