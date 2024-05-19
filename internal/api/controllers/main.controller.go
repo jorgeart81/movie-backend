@@ -4,21 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-
-	"github.com/jorgeart81/movie-backend/internal/models"
 )
 
-type apiController struct {
-	app *models.Application
+type ApiController struct {
+	Domain string
 }
 
-var controllerStruct apiController
-
-func Init(app *models.Application) {
-	controllerStruct.app = app
-}
-
-func Home(w http.ResponseWriter, r *http.Request) {
+func (ac *ApiController) Home(w http.ResponseWriter, r *http.Request) {
 	var payload = struct {
 		Status  string `json:"status"`
 		Message string `json:"message"`

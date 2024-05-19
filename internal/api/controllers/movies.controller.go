@@ -9,11 +9,11 @@ import (
 	"github.com/jorgeart81/movie-backend/internal/models"
 )
 
-func Movies(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, Movies from %s", controllerStruct.app.Domain)
+func (ac *ApiController) Movies(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello, Movies from %s", ac.Domain)
 }
 
-func AllMovies(w http.ResponseWriter, r *http.Request) {
+func (ac *ApiController) AllMovies(w http.ResponseWriter, r *http.Request) {
 	rd, _ := time.Parse("2006-01-02", "1986-03-07")
 	var movies = []models.Movie{
 		{

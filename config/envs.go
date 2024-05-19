@@ -7,23 +7,16 @@ import (
 	"strconv"
 
 	"github.com/joho/godotenv"
-	"github.com/jorgeart81/movie-backend/internal/models"
 )
 
 type Environment struct {
-	ApiPort         int
-	ApiHost         string
+	APIPort         int
+	APIHost         string
 	Domain          string
 	CORSAllowOrigin string
 }
 
-func Envs() Environment {
-	var requiredEnvs = []string{
-		models.EnvKeys.API_PORT,
-		models.EnvKeys.API_HOST,
-		models.EnvKeys.DOMAIN,
-		models.EnvKeys.CORS_ALLOW_ORIGIN,
-	}
+func Envs() *Environment {
 
 	loadEnv()
 	err := checkEnvVars(requiredEnvs)
@@ -32,12 +25,12 @@ func Envs() Environment {
 	}
 
 	var env Environment
-	env.ApiPort = parseInt(os.Getenv(models.EnvKeys.API_PORT), "error parsing API_PORT")
-	env.ApiHost = os.Getenv(models.EnvKeys.API_HOST)
-	env.Domain = os.Getenv(models.EnvKeys.DOMAIN)
-	env.CORSAllowOrigin = os.Getenv(models.EnvKeys.CORS_ALLOW_ORIGIN)
+	env.APIPort = parseInt(os.Getenv(envKeys.API_PORT), "error parsing API_PORT")
+	env.APIHost = os.Getenv(envKeys.API_HOST)
+	env.Domain = os.Getenv(envKeys.DOMAIN)
+	env.CORSAllowOrigin = os.Getenv(envKeys.CORS_ALLOW_ORIGIN)
 
-	return env
+	return &env
 }
 
 func loadEnv() error {
