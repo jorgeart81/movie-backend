@@ -1,10 +1,16 @@
 package middlewares
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/jorgeart81/movie-backend/config"
+)
+
+var envs = config.Envs()
 
 func EnableCORS(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "http://*")
+		w.Header().Set("Access-Control-Allow-Origin", envs.CORSAllowOrigin)
 
 		if r.Method == "OPTIONS" {
 			w.Header().Set("Access-Control-Allow-Credentials", "true")

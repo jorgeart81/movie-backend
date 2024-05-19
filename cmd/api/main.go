@@ -13,7 +13,7 @@ import (
 
 func main() {
 	var app models.Application
-	envs, _ := config.Envs()
+	envs := config.Envs()
 
 	flag.StringVar(&app.Domain, "domain", envs.Domain, "domain")
 	flag.Parse()
