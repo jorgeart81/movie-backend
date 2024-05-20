@@ -1,7 +1,6 @@
 package api
 
 import (
-	"database/sql"
 	"log"
 	"net/http"
 
@@ -9,6 +8,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/jorgeart81/movie-backend/config"
 	"github.com/jorgeart81/movie-backend/internal/api/controllers"
+	"github.com/jorgeart81/movie-backend/internal/repository"
 )
 
 // Server serves the public run API.
@@ -16,17 +16,17 @@ type Server struct {
 	router          *chi.Mux
 	CORSAllowOrigin string
 	Domain          string
-	db              *sql.DB
+	DB              repository.DatabaseRepo
 }
 
 // NewServer returns
-func NewServer(envs *config.Environment, db *sql.DB) *Server {
+func NewServer(envs *config.Environment, db repository.DatabaseRepo) *Server {
 	log.Println("Starting application on port", envs.APIPort)
 
 	return &Server{
 		CORSAllowOrigin: envs.CORSAllowOrigin,
 		Domain:          envs.Domain,
-		db:              db,
+		DB:              db,
 	}
 }
 
