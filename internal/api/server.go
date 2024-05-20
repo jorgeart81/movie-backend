@@ -40,7 +40,8 @@ func (s *Server) Listen(addr string) error {
 func (s *Server) initRouter() {
 	s.router = chi.NewRouter()
 	controller := controllers.ApiController{
-		Domain: s.Domain,
+		Domain:     s.Domain,
+		Repository: s.DB,
 	}
 
 	s.router.Use(middleware.Recoverer)

@@ -4,38 +4,17 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"time"
-
-	"github.com/jorgeart81/movie-backend/internal/models"
 )
 
-func (ac *ApiController) Movies(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, Movies from %s", ac.Domain)
+func (c *ApiController) Movies(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Hello, Movies from %s", c.Domain)
 }
 
-func (ac *ApiController) AllMovies(w http.ResponseWriter, r *http.Request) {
-	rd, _ := time.Parse("2006-01-02", "1986-03-07")
-	var movies = []models.Movie{
-		{
-			ID:          1,
-			Title:       "Highlander",
-			ReleaseDate: rd,
-			MPAARating:  "R",
-			Runtime:     116,
-			Description: "A very nice movie",
-			CreatedAt:   time.Now(),
-			UpdatedAt:   time.Now(),
-		},
-		{
-			ID:          2,
-			Title:       "Raiders of the Lost Ark",
-			ReleaseDate: rd,
-			MPAARating:  "PG",
-			Runtime:     115,
-			Description: "Another very nice movie",
-			CreatedAt:   time.Now(),
-			UpdatedAt:   time.Now(),
-		},
+func (c *ApiController) AllMovies(w http.ResponseWriter, r *http.Request) {
+	movies, err := c.Repository.AllMovies()
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
 
 	out, err := json.Marshal(movies)

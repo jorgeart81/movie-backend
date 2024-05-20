@@ -4,13 +4,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/jorgeart81/movie-backend/internal/repository"
 )
 
 type ApiController struct {
-	Domain string
+	Domain     string
+	Repository repository.DatabaseRepo
 }
 
-func (ac *ApiController) Home(w http.ResponseWriter, r *http.Request) {
+func (c *ApiController) Home(w http.ResponseWriter, r *http.Request) {
 	var payload = struct {
 		Status  string `json:"status"`
 		Message string `json:"message"`

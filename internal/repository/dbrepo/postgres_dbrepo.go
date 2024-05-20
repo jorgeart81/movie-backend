@@ -49,7 +49,7 @@ func (m *PostgresDBRepo) AllMovies() ([]*models.Movie, error) {
 			&movie.ID,
 			&movie.Title,
 			&movie.ReleaseDate,
-			&movie.ReleaseDate,
+			&movie.Runtime,
 			&movie.MPAARating,
 			&movie.Description,
 			&movie.Image,
