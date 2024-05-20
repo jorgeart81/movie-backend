@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type Movie struct {
 	ID          int       `json:"id"`
@@ -12,4 +14,18 @@ type Movie struct {
 	Image       string    `json:"image"`
 	CreatedAt   time.Time `json:"-"`
 	UpdatedAt   time.Time `json:"-"`
+}
+
+func NewMovie(m Movie) *Movie {
+	// deployID := uuid.New()
+
+	return &Movie{
+		Title:       m.Title,
+		ReleaseDate: m.ReleaseDate,
+		MPAARating:  m.MPAARating,
+		Runtime:     m.Runtime,
+		Description: m.Description,
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
+	}
 }
