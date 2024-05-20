@@ -22,7 +22,7 @@ type Environment struct {
 	DBHost         string
 	SSLMode        string
 	Timezone       string
-	ConnectTimeOut string
+	ConnectTimeOut int
 }
 
 func Envs() *Environment {
@@ -47,7 +47,7 @@ func Envs() *Environment {
 		DBHost:         os.Getenv(envKeys.DB_HOST),
 		SSLMode:        os.Getenv(envKeys.SSLMODE),
 		Timezone:       os.Getenv(envKeys.TIMEZONE),
-		ConnectTimeOut: os.Getenv(envKeys.CONNECT_TIMEOUT),
+		ConnectTimeOut: parseInt(os.Getenv(envKeys.CONNECT_TIMEOUT), "error parsing CONNECT_TIMEOUT"),
 	}
 }
 

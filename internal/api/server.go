@@ -1,6 +1,7 @@
 package api
 
 import (
+	"database/sql"
 	"log"
 	"net/http"
 
@@ -15,15 +16,17 @@ type Server struct {
 	router          *chi.Mux
 	CORSAllowOrigin string
 	Domain          string
+	db              *sql.DB
 }
 
 // NewServer returns
-func NewServer(envs *config.Environment) *Server {
+func NewServer(envs *config.Environment, db *sql.DB) *Server {
 	log.Println("Starting application on port", envs.APIPort)
 
 	return &Server{
 		CORSAllowOrigin: envs.CORSAllowOrigin,
 		Domain:          envs.Domain,
+		db:              db,
 	}
 }
 

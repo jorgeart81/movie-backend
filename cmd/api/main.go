@@ -13,15 +13,17 @@ func main() {
 
 	// TODO: set application config
 
-	// TODO: read from command line
-	// flag.StringVar(&app.Domain, "domain", envs.Domain, "domain")
-	// flag.Parse()
-
-	// TODO: connect to the database
+	// Connect to the database
+	dns := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s timezone=%s connect_timeout=%d",
+		envs.DBHost, envs.DBPort, envs.DBUser, envs.DBPassword, envs.DBName, envs.SSLMode, envs.Timezone, envs.ConnectTimeOut)
+	conn, err := api.ConnectToDB(dns)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// start a web server
 	addr := fmt.Sprintf("%s:%d", envs.APIHost, envs.APIPort)
-	server := api.NewServer(envs)
+	server := api.NewServer(envs, conn)
 	// log.Fatal(server.Listen(addr))
 	if err := server.Listen(addr); err != nil {
 		log.Fatal(err)
