@@ -14,23 +14,41 @@ type Environment struct {
 	APIHost         string
 	Domain          string
 	CORSAllowOrigin string
+
+	DBUser         string
+	DBPassword     string
+	DBName         string
+	DBPort         int
+	DBHost         string
+	SSLMode        string
+	Timezone       string
+	ConnectTimeOut string
 }
 
 func Envs() *Environment {
-
+	// Load if .env file exists
 	loadEnv()
+
 	err := checkEnvVars(requiredEnvs)
 	if err != nil {
 		log.Fatalf(err.Error())
 	}
 
-	var env Environment
-	env.APIPort = parseInt(os.Getenv(envKeys.API_PORT), "error parsing API_PORT")
-	env.APIHost = os.Getenv(envKeys.API_HOST)
-	env.Domain = os.Getenv(envKeys.DOMAIN)
-	env.CORSAllowOrigin = os.Getenv(envKeys.CORS_ALLOW_ORIGIN)
+	return &Environment{
+		APIPort:         parseInt(os.Getenv(envKeys.API_PORT), "error parsing API_PORT"),
+		APIHost:         os.Getenv(envKeys.API_HOST),
+		Domain:          os.Getenv(envKeys.DOMAIN),
+		CORSAllowOrigin: os.Getenv(envKeys.CORS_ALLOW_ORIGIN),
 
-	return &env
+		DBUser:         os.Getenv(envKeys.POSTGRES_USER),
+		DBPassword:     os.Getenv(envKeys.POSTGRES_PASSWORD),
+		DBName:         os.Getenv(envKeys.POSTGRES_DB),
+		DBPort:         parseInt(os.Getenv(envKeys.DB_PORT), "error parsing DB_PORT"),
+		DBHost:         os.Getenv(envKeys.DB_HOST),
+		SSLMode:        os.Getenv(envKeys.SSLMODE),
+		Timezone:       os.Getenv(envKeys.TIMEZONE),
+		ConnectTimeOut: os.Getenv(envKeys.CONNECT_TIMEOUT),
+	}
 }
 
 func loadEnv() error {
