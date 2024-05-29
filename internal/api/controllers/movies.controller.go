@@ -12,7 +12,7 @@ func (c *ApiController) Movies(w http.ResponseWriter, r *http.Request) {
 func (c *ApiController) AllMovies(w http.ResponseWriter, r *http.Request) {
 	movies, err := c.Repository.AllMovies()
 	if err != nil {
-		fmt.Println(err)
+		c.errorJSON(w, err)
 		return
 	}
 
