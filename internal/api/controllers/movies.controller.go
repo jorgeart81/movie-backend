@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -17,12 +16,5 @@ func (c *ApiController) AllMovies(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	out, err := json.Marshal(movies)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(out)
+	_ = c.writeJSON(w, http.StatusOK, movies)
 }

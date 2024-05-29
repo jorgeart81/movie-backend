@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/jorgeart81/movie-backend/internal/repository"
@@ -24,12 +22,5 @@ func (c *ApiController) Home(w http.ResponseWriter, r *http.Request) {
 		Version: "1.0.0",
 	}
 
-	out, err := json.Marshal(payload)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(out)
+	_ = c.writeJSON(w, http.StatusOK, payload)
 }
