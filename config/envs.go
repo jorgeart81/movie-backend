@@ -12,7 +12,11 @@ import (
 type Environment struct {
 	APIPort         int
 	APIHost         string
+	CookieDomain    string
 	Domain          string
+	JWTSecret       string
+	JWTIssuer       string
+	JWTAudience     string
 	CORSAllowOrigin string
 
 	DBUser         string
@@ -37,7 +41,11 @@ func Envs() *Environment {
 	return &Environment{
 		APIPort:         parseInt(os.Getenv(envKeys.API_PORT), "error parsing API_PORT"),
 		APIHost:         os.Getenv(envKeys.API_HOST),
+		CookieDomain:    os.Getenv(envKeys.COOKIE_DOMAIN),
 		Domain:          os.Getenv(envKeys.DOMAIN),
+		JWTSecret:       os.Getenv(envKeys.JWT_SECRET),
+		JWTIssuer:       os.Getenv(envKeys.JWT_ISSUER),
+		JWTAudience:     os.Getenv(envKeys.JWT_AUDIENCE),
 		CORSAllowOrigin: os.Getenv(envKeys.CORS_ALLOW_ORIGIN),
 
 		DBUser:         os.Getenv(envKeys.POSTGRES_USER),
