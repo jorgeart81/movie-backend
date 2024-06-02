@@ -3,11 +3,13 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/jorgeart81/movie-backend/internal/api/auth"
 	"github.com/jorgeart81/movie-backend/internal/repository"
 )
 
 type ApiController struct {
 	Domain     string
+	Auth       *auth.Auth
 	Repository repository.DatabaseRepo
 }
 

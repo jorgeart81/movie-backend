@@ -6,9 +6,8 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
 	"github.com/jorgeart81/movie-backend/config"
-	"github.com/jorgeart81/movie-backend/internal/api/controllers"
+	"github.com/jorgeart81/movie-backend/internal/api/auth"
 	"github.com/jorgeart81/movie-backend/internal/repository"
 )
 
@@ -18,7 +17,7 @@ type server struct {
 	CORSAllowOrigin string
 	Domain          string
 	DB              repository.DatabaseRepo
-	auth            Auth
+	auth            auth.Auth
 }
 
 // NewServer returns
@@ -29,7 +28,7 @@ func NewServer(envs *config.Environment, db repository.DatabaseRepo) *server {
 		CORSAllowOrigin: envs.CORSAllowOrigin,
 		Domain:          envs.Domain,
 		DB:              db,
-		auth: Auth{
+		auth: auth.Auth{
 			Issuer:        envs.JWTIssuer,
 			Audience:      envs.JWTAudience,
 			Secret:        envs.JWTSecret,
@@ -46,24 +45,4 @@ func NewServer(envs *config.Environment, db repository.DatabaseRepo) *server {
 func (s *server) Listen(addr string) error {
 	s.initRouter()
 	return http.ListenAndServe(addr, s.router)
-
-}
-
-func (s *server) initRouter() {
-	s.router = chi.NewRouter()
-	controller := controllers.ApiController{
-		Domain:     s.Domain,
-		Repository: s.DB,
-	}
-
-	s.router.Use(middleware.Recoverer)
-	s.router.Use(s.enableCORS)
-
-	s.router.Route("/api", func(mux chi.Router) {
-		mux.Get("/", controller.Home)
-
-		mux.Route("/movies", func(mux chi.Router) {
-			mux.Get("/", controller.AllMovies)
-		})
-	})
 }
