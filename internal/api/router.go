@@ -28,6 +28,10 @@ func (s *server) routes(c *controllers.ApiController) {
 		mux.Route("/movies", func(mux chi.Router) {
 			mux.Get("/", c.AllMovies)
 		})
+
+		mux.Route("/authenticate", func(mux chi.Router) {
+			mux.Get("/", c.Authenticate)
+		})
 	})
 }
 
