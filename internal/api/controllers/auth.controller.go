@@ -56,6 +56,12 @@ func (c *ApiController) Authenticate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (c *ApiController) RefreshToken(w http.ResponseWriter, r *http.Request) {
+
+	if len(r.Cookies()) == 0 {
+		c.errorJSON(w, errors.New("unauthorized"), http.StatusUnauthorized)
+		return
+	}
+
 	for _, cookie := range r.Cookies() {
 		if cookie.Name == c.Auth.CookieName {
 			claims := &auth.Claims{}
