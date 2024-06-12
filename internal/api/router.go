@@ -30,7 +30,7 @@ func (s *server) routes(c *controllers.ApiController) {
 		})
 
 		mux.Route("/authenticate", func(mux chi.Router) {
-			mux.Get("/", c.Authenticate)
+			mux.Post("/", c.Authenticate)
 		})
 	})
 }
