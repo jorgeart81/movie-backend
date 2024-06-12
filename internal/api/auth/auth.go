@@ -73,9 +73,6 @@ func (j *Auth) GenerateTokenPair(user *JwtUser) (TokenPairs, error) {
 		return TokenPairs{}, err
 	}
 
-	fmt.Printf("Token expiry: %v\n", j.TokenExpiry)
-	fmt.Printf("Refresh token expiry: %v\n", j.RefreshExpiry)
-
 	// Create TokenPairs and populate with signed tokens
 	var tokenPairs = TokenPairs{
 		Token:        signedAccessToken,
