@@ -31,6 +31,7 @@ func (s *server) routes(c *controllers.ApiController) {
 
 		mux.Route("/authenticate", func(mux chi.Router) {
 			mux.Post("/", c.Authenticate)
+			mux.Get("/refresh", c.RefreshToken)
 		})
 	})
 }
