@@ -68,10 +68,13 @@ func (j *Auth) GenerateTokenPair(user *JwtUser) (TokenPairs, error) {
 	refreshTokenClaims["exp"] = time.Now().UTC().Add(j.RefreshExpiry).Unix()
 
 	// Create signed refresh token
-	signedRefreshToken, err := token.SignedString([]byte(j.Secret))
+	signedRefreshToken, err := refreshToken.SignedString([]byte(j.Secret))
 	if err != nil {
 		return TokenPairs{}, err
 	}
+
+	fmt.Printf("Token expiry: %v\n", j.TokenExpiry)
+	fmt.Printf("Refresh token expiry: %v\n", j.RefreshExpiry)
 
 	// Create TokenPairs and populate with signed tokens
 	var tokenPairs = TokenPairs{
