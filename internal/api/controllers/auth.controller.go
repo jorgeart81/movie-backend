@@ -107,3 +107,8 @@ func (c *ApiController) RefreshToken(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 }
+
+func (c *ApiController) Logout(w http.ResponseWriter, r *http.Request) {
+	http.SetCookie(w, c.Auth.GetExpiredRefreshCookie())
+	w.WriteHeader(http.StatusAccepted)
+}
