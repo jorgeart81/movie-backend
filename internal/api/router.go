@@ -25,10 +25,6 @@ func (s *server) routes(c *controllers.ApiController) {
 	s.router.Route("/api", func(mux chi.Router) {
 		mux.Get("/", c.Home)
 
-		mux.Route("/movies", func(mux chi.Router) {
-			mux.Get("/", c.AllMovies)
-		})
-
 		mux.Route("/authenticate", func(mux chi.Router) {
 			mux.Post("/", c.Authenticate)
 			mux.Get("/refresh", c.RefreshToken)
@@ -41,5 +37,8 @@ func (s *server) protectedRoutes(c *controllers.ApiController) {
 	s.router.Route("/api/admin", func(mux chi.Router) {
 		mux.Use(s.authRequired)
 
+		mux.Route("/movies", func(mux chi.Router) {
+			mux.Get("/", c.AllMovies)
+		})
 	})
 }
